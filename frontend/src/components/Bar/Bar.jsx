@@ -1,7 +1,7 @@
 import logo from "./assets/logo.png";
 
 import { useState } from "react";
-import { Link as RouterLink, useHistory } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "react-use";
 
 import {
@@ -24,7 +24,7 @@ function Bar() {
   const [disabledAuth] = useLocalStorage("disableAuth", false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const openMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -37,8 +37,8 @@ function Bar() {
   const onLogOutClick = () => {
     setLoggedIn(false);
     localStorage.clear();
-    history.push("/");
-    history.go(0);
+    navigate("/");
+    navigate(0);
   };
 
   const menuItems = [

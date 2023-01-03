@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "react-use";
 
 import {
@@ -19,7 +19,7 @@ function LogInToken() {
   const [, setLoggedIn] = useLocalStorage("loggedIn", false);
   const [token, setToken] = useLocalStorage("token", null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,7 +49,7 @@ function LogInToken() {
     setLoggedIn(true);
     setToken(token);
     handleClose();
-    history.go(0);
+    navigate(0);
   };
 
   return (

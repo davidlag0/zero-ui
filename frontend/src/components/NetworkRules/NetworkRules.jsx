@@ -11,7 +11,8 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CodeMirror from "@uiw/react-codemirror";
-import "codemirror/theme/3024-day.css";
+import { createTheme } from "@uiw/codemirror-themes";
+import { tags as t } from "@lezer/highlight";
 import { compile } from "external/RuleCompiler";
 import debounce from "lodash/debounce";
 import { useState } from "react";
@@ -84,6 +85,36 @@ function NetworkRules({ network, callback }) {
     }
   }, 100);
 
+  const theme3024day = createTheme({
+    theme: "light",
+    settings: {
+      background: "#f7f7f7",
+      foreground: "#3a3432",
+      caret: "#5d00ff",
+      selection: "#d6d5d4",
+      selectionMatch: "#036dd626",
+      lineHighlight: "#e8f2ff",
+      gutterBackground: "#f7f7f7",
+      gutterForeground: "#8a919966",
+    },
+    styles: [
+      { tag: t.comment, color: "#cdab53" },
+      { tag: t.variableName, color: "#0080ff" },
+      { tag: [t.string, t.special(t.brace)], color: "#5c6166" },
+      { tag: t.number, color: "#a16a94" },
+      { tag: t.bool, color: "#5c6166" },
+      { tag: t.null, color: "#5c6166" },
+      { tag: t.keyword, color: "#db2d20" },
+      { tag: t.operator, color: "#5c6166" },
+      { tag: t.className, color: "#5c6166" },
+      { tag: t.definition(t.typeName), color: "#5c6166" },
+      { tag: t.typeName, color: "#5c6166" },
+      { tag: t.angleBracket, color: "#3a3432" },
+      { tag: t.tagName, color: "#5c6166" },
+      { tag: t.attributeName, color: "#01a252" },
+    ],
+  });
+
   return (
     <Accordion>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -105,8 +136,8 @@ function NetworkRules({ network, callback }) {
               value={JSON.stringify(flowData, null, 2)}
               width="100%"
               height="50%"
+              theme={theme3024day}
               options={{
-                theme: "3024-day",
                 readOnly: true,
                 lineNumbers: false,
                 lineWrapping: true,

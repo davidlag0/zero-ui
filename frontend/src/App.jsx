@@ -1,6 +1,6 @@
 import "@fontsource/roboto";
 
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Navigate, Routes } from "react-router-dom";
 
 import Theme from "./components/Theme";
 import Bar from "./components/Bar";
@@ -14,12 +14,12 @@ function App() {
     <Theme>
       <BrowserRouter basename="/app">
         <Bar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/network/:nwid" component={Network} />
-          <Route path="/404" component={NotFound} />
-          <Redirect to="/404" />
-        </Switch>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/network/:nwid" element={<Network />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to="/404" />} />
+        </Routes>
       </BrowserRouter>
     </Theme>
   );

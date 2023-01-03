@@ -6,7 +6,7 @@ import NetworkMembers from "components/NetworkMembers";
 import NetworkRules from "components/NetworkRules";
 import NetworkSettings from "components/NetworkSettings";
 import { useCallback, useEffect, useState } from "react";
-import { Link as RouterLink, useHistory, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 import { useLocalStorage } from "react-use";
 import API from "utils/API";
 import useStyles from "./Network.styles";
@@ -17,7 +17,7 @@ function Network() {
   const [network, setNetwork] = useState({});
 
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const fetchData = useCallback(async () => {
     try {
@@ -26,11 +26,11 @@ function Network() {
       console.log("Current network:", network.data);
     } catch (err) {
       if (err.response.status === 404) {
-        history.push("/404");
+        navigate("/404");
       }
       console.error(err);
     }
-  }, [nwid, history]);
+  }, [nwid, navigate]);
 
   useEffect(() => {
     fetchData();

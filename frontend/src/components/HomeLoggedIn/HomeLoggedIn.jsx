@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Divider, Button, Grid, Typography, Box } from "@material-ui/core";
 import useStyles from "./HomeLoggedIn.styles";
@@ -13,12 +13,12 @@ function HomeLoggedIn() {
   const [networks, setNetworks] = useState([]);
 
   const classes = useStyles();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const createNetwork = async () => {
     const network = await API.post("network", generateNetworkConfig());
     console.log(network);
-    history.push("/network/" + network.data["config"]["id"]);
+    navigate("/network/" + network.data["config"]["id"]);
   };
 
   useEffect(() => {

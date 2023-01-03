@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "react-use";
 import {
   TextField,
@@ -23,7 +23,7 @@ function LogInUser() {
   const [, setLoggedIn] = useLocalStorage("loggedIn", false);
   const [, setToken] = useLocalStorage("token", null);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -60,7 +60,7 @@ function LogInUser() {
         setLoggedIn(true);
         setToken(response.data.token);
         handleClose();
-        history.go(0);
+        navigate(0);
       })
       .catch(function (error) {
         setPassword("");

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Grid, Typography } from "@material-ui/core";
 import { useLocalStorage } from "react-use";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -9,7 +9,7 @@ function HomeLoggedOut() {
   const [, setLoggedIn] = useLocalStorage("loggedIn", false);
   const [, setToken] = useLocalStorage("token", null);
   const [, setDisableAuth] = useLocalStorage("disableAuth", false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -20,14 +20,14 @@ function HomeLoggedOut() {
             setLoggedIn(true);
             setDisableAuth(true);
             setToken("");
-            history.go(0);
+            navigate(0);
           } else {
             setDisableAuth(false);
           }
         });
     }
     fetchData();
-  }, [history, setDisableAuth, setLoggedIn, setToken]);
+  }, [navigate, setDisableAuth, setLoggedIn, setToken]);
 
   return (
     <Grid

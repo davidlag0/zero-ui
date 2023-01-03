@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {
   Accordion,
@@ -20,7 +20,7 @@ import API from "utils/API";
 
 function NetworkManagement() {
   const { nwid } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -38,8 +38,8 @@ function NetworkManagement() {
 
   const deleteNetwork = async () => {
     await sendDelReq();
-    history.push("/");
-    history.go(0);
+    navigate("/");
+    navigate(0);
   };
 
   return (
